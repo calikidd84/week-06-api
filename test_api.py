@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 # Load .env into os.environ
 load_dotenv()
 
-token = os.getenv("GITHUB_TOKEN")
+token = os.getenv("API_TOKEN")
 if not token:
-    raise ValueError("GITHUB_TOKEN is not set in .env")
+    raise ValueError("API_TOKEN is not set in .env")
 
-model = os.getenv("GITHUB_MODEL", "openai/gpt-4.1")
+model = os.getenv("API_MODEL", "deepseek/deepseek-r1:free")
 
 client = OpenAI(
-    base_url="https://models.github.ai/inference",
+    base_url=os.environ.get("API_BASE_URL") or "https://openrouter.ai/api/v1"
     api_key=token
 )
 
